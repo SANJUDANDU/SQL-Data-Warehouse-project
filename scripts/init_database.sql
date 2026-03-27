@@ -91,9 +91,109 @@ CREATE TABLE Bronze.erp_LOC_A101(
 IF OBJECT_ID('bronze.erp_PX_CAT_G1V2', 'U') IS NOT NULL
 	DROP TABLE bronze.erp_PX_CAT_G1V2;
 
+
 CREATE TABLE Bronze.erp_PX_CAT_G1V2(
 	ID NVARCHAR(50),
 	Cat NVARCHAR(50),
 	SubCat NVARCHAR(50),
 	Maintainence NVARCHAR(50)
 );
+-----------------------------------------------------------------------------------------------------------------
+--TRUNCATE TABLE is a T-SQL command used to delete all rows from a table while keeping the table structure intact. It is faster than using the DELETE statement without a WHERE clause because it does not log individual row deletions.
+
+TRUNCATE TABLE Bronze.crm_cust_info
+
+
+--BULK INSERT is a T-SQL command used to import data from a file into a SQL Server table. The command allows you to specify various options for how the data should be imported, such as the field terminator, row terminator, and whether to ignore the first row (which often contains headers).
+
+BULK INSERT Bronze.crm_cust_info
+
+FROM 'C:\Users\vigne\Downloads\datasets\source_crm\cust_info.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM Bronze.crm_cust_info;
+
+------------------------------------------------------
+TRUNCATE TABLE [Bronze].[crm_prod_info]
+
+BULK INSERT Bronze.crm_prod_info
+FROM 'C:\Users\vigne\Downloads\datasets\source_crm\prd_info.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM [Bronze].[crm_prod_info];
+----------------------------------------------------------------------------
+
+SELECT COUNT(*) FROM [Bronze].[crm_sales_info]
+
+TRUNCATE TABLE [Bronze].[crm_sales_info]
+
+BULK INSERT [Bronze].[crm_sales_info]
+FROM 'C:\Users\vigne\Downloads\datasets\source_crm\sales_details.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM [Bronze].[crm_sales_info];
+---------------------------------------------------------------------
+
+TRUNCATE TABLE [Bronze].[erp_cust_az12]
+           
+BULK INSERT [Bronze].[erp_cust_az12]
+FROM 'C:\Users\vigne\Downloads\datasets\source_erp\cust_az12.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM [Bronze].[erp_cust_az12]
+------------------------------------------------------------------------
+
+TRUNCATE TABLE [Bronze].[erp_LOC_A101]
+           
+BULK INSERT [Bronze].[erp_LOC_A101]
+FROM 'C:\Users\vigne\Downloads\datasets\source_erp\LOC_A101.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM [Bronze].[erp_LOC_A101]
+---------------------------------------------------------------------------
+
+TRUNCATE TABLE [Bronze].[erp_PX_CAT_G1V2]
+           
+BULK INSERT [Bronze].[erp_PX_CAT_G1V2]
+FROM 'C:\Users\vigne\Downloads\datasets\source_erp\PX_CAT_G1V2.csv'
+WITH
+(
+	FIRSTROW = 2,
+	FIELDTERMINATOR = ',',
+	TABLOCK
+);
+
+--CHECKING THE DATA
+SELECT * FROM [Bronze].[erp_PX_CAT_G1V2]
+-----------------------------------------------------------------------------
+
