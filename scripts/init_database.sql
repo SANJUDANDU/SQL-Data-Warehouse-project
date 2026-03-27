@@ -99,6 +99,9 @@ CREATE TABLE Bronze.erp_PX_CAT_G1V2(
 	Maintainence NVARCHAR(50)
 );
 -----------------------------------------------------------------------------------------------------------------
+CREATE OR ALTER PROCEDURE [dbo].[Load_Bronze_Tables] AS
+BEGIN
+
 --TRUNCATE TABLE is a T-SQL command used to delete all rows from a table while keeping the table structure intact. It is faster than using the DELETE statement without a WHERE clause because it does not log individual row deletions.
 
 TRUNCATE TABLE Bronze.crm_cust_info
@@ -196,4 +199,7 @@ WITH
 --CHECKING THE DATA
 SELECT * FROM [Bronze].[erp_PX_CAT_G1V2]
 -----------------------------------------------------------------------------
+END;
+
+EXECUTE [dbo].[Load_Bronze_Tables]
 
