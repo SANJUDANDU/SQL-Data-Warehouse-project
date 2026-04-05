@@ -1,3 +1,26 @@
+/*
+============================================
+Quality Checks and Data Cleaning in Silver Layer
+============================================
+This SQL script defines a stored procedure named `Load_Silver` that is responsible for loading data from the Bronze 
+layer into the Silver layer of a data warehouse. The procedure performs several data cleaning and transformation operations
+to ensure that the data in the Silver layer is of high quality and ready for analysis.
+
+script purpose:
+1. Truncating existing data: The procedure starts by truncating the target tables in the Silver layer to ensure that 
+   old data is removed before new data is loaded.
+2. Data transformation: The script includes various transformations such as trimming whitespace, standardizing values
+   (e.g., converting, gender, marital status), and handling missing or invalid data (e.g., setting future birthdates to NULL).
+3. Logging: The procedure includes print statements to log the progress of the data loading process, which can be helpful for monitoring and debugging.
+   Overall, this script is a crucial part of the ETL (Extract, Transform, Load) process in a data warehouse, ensuring that the data in the Silver layer is clean,
+   consistent, and ready for analysis.
+
+   usage notes:
+   - Ensure that the Bronze layer tables are populated with data before executing this procedure, 
+   as it relies on the data in those tables to load into the Silver layer.
+   EXEC Silver.Load_Silver;
+-----------------------------------------------------------------------------------------------------------------
+*/
 
 CREATE OR ALTER PROCEDURE Silver.Load_Silver AS
 BEGIN
@@ -109,5 +132,9 @@ FROM Bronze.erp_PX_CAT_G1V2
 
 --SELECT * FROM Silver.erp_PX_CAT_G1V2
 END
+  
+
+
+
   
 
