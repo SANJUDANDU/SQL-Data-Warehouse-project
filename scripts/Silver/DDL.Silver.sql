@@ -1,5 +1,16 @@
---Creating DDL for Silver layer--
---Creating table for crm.cust.info--
+/*
+=====================================
+Description: This script is used to create DDL for Silver layer in Data Warehouse.
+
+SCRIPT PURPOSE:
+1. This script creates tables in the Silver layer of the Data Warehouse.
+2. It checks if the tables already exist and drops them before creating new ones to ensure a clean slate for the Silver layer.
+3. Each table is designed to hold specific types of data related to CRM and ERP systems, with appropriate data types and default values for the creation date.
+USAGE NOTES:
+- Execute this script in the context of the Silver layer database to create the necessary tables for storing cleaned and transformed data.
+- Ensure that the Silver layer database is properly configured and accessible before running this script.
+=====================================
+*/
 
 IF OBJECT_ID('Silver.crm_cust_info', 'U') IS NOT NULL
 	DROP TABLE Silver.crm_cust_info;
