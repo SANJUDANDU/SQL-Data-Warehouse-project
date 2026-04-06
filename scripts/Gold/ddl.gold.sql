@@ -27,6 +27,10 @@ Enables analytical queries like:
 Sales trends
 Customer behavior
 Product performance
+
+Outcome
+
+This script transforms raw structured data into a scalable, analytics-ready data model, enabling efficient reporting and business insights.
   */
   
 CREATE VIEW Gold_Dim_Customers As ---- FOR CUSTOMERS DIMENSION
