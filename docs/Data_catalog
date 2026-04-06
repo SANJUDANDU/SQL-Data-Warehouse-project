@@ -1,1 +1,85 @@
+📘 Data Dictionary – Gold Layer (Data Warehouse)
 
+🌟 Overview
+
+The Gold Layer represents the final, business-ready data model structured using a Star Schema. It contains:
+
+Dimension Tables: Customers, Products
+Fact Table: Sales
+
+This layer is optimized for analytics, reporting, and BI tools like Power BI.
+
+1.👤 Gold_Dim_Customers – Customer Dimension
+
+| Column Name     | Data Type | Description                              |
+| --------------- | --------- | ---------------------------------------- |
+| Customer_Key    | INT       | Surrogate key generated using ROW_NUMBER |
+| Customer_Id     | INT       | Unique customer ID from CRM system       |
+| Customer_Number | VARCHAR   | Business key for customer                |
+| First_Name      | VARCHAR   | Customer first name                      |
+| Last_Name       | VARCHAR   | Customer last name                       |
+| Country         | VARCHAR   | Customer country from location table     |
+| Martial_Status  | VARCHAR   | Marital status of customer               |
+| Gender          | VARCHAR   | Gender (CRM preferred, fallback to ERP)  |
+| Birthdate       | DATE      | Customer birth date                      |
+| Cst_Create_Date | DATE      | Record creation date                     |
+
+🧠 Notes
+CRM is treated as the primary source for Gender
+COALESCE ensures no null values
+Combines data from CRM + ERP systems
+
+2. 📦 Gold_Dim_Products – Product Dimension
+  
+📌 Description
+
+Contains product-related information including category hierarchy.
+
+| Column Name    | Data Type | Description                 |
+| -------------- | --------- | --------------------------- |
+| Product_Key    | INT       | Surrogate key               |
+| Product_ID     | INT       | Product ID                  |
+| Product_Number | VARCHAR   | Unique product code         |
+| Product_Name   | VARCHAR   | Name of the product         |
+| Category_ID    | INT       | Category identifier         |
+| Category       | VARCHAR   | Product category            |
+| SubCategory    | VARCHAR   | Product subcategory         |
+| Maintainence   | VARCHAR   | Maintenance type            |
+| Cost           | DECIMAL   | Product cost                |
+| Product_Line   | VARCHAR   | Product line classification |
+| Start_Date     | DATE      | Product active start date   |
+
+🧠 Notes
+Filters only current products (Prd_End_Dt IS NULL)
+Supports hierarchical analysis (Category → SubCategory)
+
+3. 💰 Gold_Fact_Sales – Sales Fact Table
+
+📌 Description
+
+Stores transactional sales data. Acts as the central table connecting dimensions.
+
+| Column Name   | Data Type | Description                      |
+| ------------- | --------- | -------------------------------- |
+| Order_Number  | VARCHAR   | Unique sales order number        |
+| Product_Key   | INT       | Foreign key → Product dimension  |
+| Customer_Key  | INT       | Foreign key → Customer dimension |
+| Order_Date    | DATE      | Date of order                    |
+| Shipping_Date | DATE      | Date of shipment                 |
+| Due_Date      | DATE      | Delivery due date                |
+| Sales_Amount  | DECIMAL   | Total sales amount               |
+| Quantity      | INT       | Number of items sold             |
+| Price         | DECIMAL   | Price per unit                   |
+
+
+🧠 Notes
+This is the central fact table
+Enables:
+Sales trend analysis 📈
+Customer purchase behavior 👤
+Product performance 📦
+
+🔗 Relationships (Star Schema)
+
+Gold_Fact_Sales.Customer_Key → Gold_Dim_Customers.Customer_Key
+Gold_Fact_Sales.Product_Key → Gold_Dim_Products.Product_Key
